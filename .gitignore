@@ -1,8 +1,25 @@
 .venv/
+.venv_*/
 __pycache__/
-*.pyc
+*.py[cod]
 build/
 dist/
 *.spec
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.log
+.env
+.env.*
+.vscode/
+
+# OS junk
+desktop.ini
+Thumbs.db
+*.lnk
+.DS_Store
+
 # Data files
 /data/emprestimos.csv
