@@ -16,3 +16,4 @@ DATA_FILE = os.path.join(DATA_DIR, "emprestimos.csv")
 DATE_FORMAT = "%d/%m/%Y"
 DATE_FORMAT_ALT = "%Y-%m-%d"
 EXP_DAYS = 15
+c
