@@ -33,6 +33,8 @@ def read_records():
 
 def write_records(records):
     data_dir = os.path.dirname(DATA_FILE)
+    if os.path.exists(DATA_FILE):
+        shutil.copy2(DATA_FILE, DATA_FILE + ".bak")
     fd, tmp_path = tempfile.mkstemp(dir=data_dir, suffix=".tmp")
     try:
         with os.fdopen(fd, "w", newline="", encoding="utf-8") as f:

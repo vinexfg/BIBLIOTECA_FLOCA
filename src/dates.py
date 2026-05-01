@@ -1,18 +1,18 @@
 from datetime import datetime, date
 
-from config import DATE_FORMAT, DATE_FORMAT_ALT, EXP_DAYS
+import config
 
 
 def parse_date(value):
     value = value.strip()
     try:
-        return datetime.strptime(value, DATE_FORMAT).date()
+        return datetime.strptime(value, config.DATE_FORMAT).date()
     except ValueError:
-        return datetime.strptime(value, DATE_FORMAT_ALT).date()
+        return datetime.strptime(value, config.DATE_FORMAT_ALT).date()
 
 
 def format_date(value_date):
-    return value_date.strftime(DATE_FORMAT)
+    return value_date.strftime(config.DATE_FORMAT)
 
 
 def calc_days(loan_date):
@@ -20,7 +20,7 @@ def calc_days(loan_date):
 
 
 def is_expired(loan_date):
-    return calc_days(loan_date) >= EXP_DAYS
+    return calc_days(loan_date) >= config.EXP_DAYS
 
 
 def calc_duration(start_date, end_date):

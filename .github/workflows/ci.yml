@@ -28,3 +28,7 @@ jobs:
       - name: Static checks
         run: |
           python -m compileall src
+
+      - name: Tests
+        run: |
+          python -m pytest tests/ -v
