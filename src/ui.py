@@ -269,13 +269,7 @@ class BibliotecaApp:
     # ── Helpers de layout ────────────────────────────────────────────────────
 
     def _card(self, parent, title):
-        outer = tk.Frame(parent, bg=BORDER, bd=0)
-        inner = ttk.LabelFrame(outer, text=title, padding=(8, 6),
-                                style="TLabelframe")
-        inner.configure(style="TLabelframe")
-        inner.pack(fill="both", expand=True, padx=1, pady=1)
-        inner._outer = outer
-        return inner
+        return ttk.LabelFrame(parent, text=title, padding=(8, 6))
 
     def _lbl(self, parent, text):
         return tk.Label(parent, text=text, bg=SURFACE,
