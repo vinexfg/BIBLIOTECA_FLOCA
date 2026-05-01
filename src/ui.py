@@ -310,7 +310,7 @@ class BibliotecaApp:
             messagebox.showinfo("Info", "Selecione um registro.")
             return
 
-        if not messagebox.askyesno("Confirmar", "Devolucao confirmada? Deletar?"):
+        if not messagebox.askyesno("Confirmar", "Deletar este registro permanentemente?"):
             return
 
         idx = int(selected[0])
@@ -348,7 +348,7 @@ class BibliotecaApp:
         self._load_tree()
 
     def _filtered_records(self):
-        query = (self.search_var.get() if hasattr(self, "search_var") else "").strip()
+        query = self.search_var.get().strip()
         if not query:
             return list(enumerate(self.records))
 

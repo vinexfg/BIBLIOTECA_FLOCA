@@ -1,5 +1,7 @@
 import csv
 import os
+import shutil
+import tempfile
 
 from config import DATA_FILE
 
@@ -30,29 +32,36 @@ def read_records():
 
 
 def write_records(records):
-    with open(DATA_FILE, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=[
-                "nome",
-                "cpf",
-                "telefone",
-                "livro",
-                "data_emprestimo",
-                "devolvido",
-                "data_devolucao",
-            ],
-        )
-        writer.writeheader()
-        for rec in records:
-            writer.writerow(
-                {
-                    "nome": rec.get("nome", ""),
-                    "cpf": rec.get("cpf", ""),
-                    "telefone": rec.get("telefone", ""),
-                    "livro": rec.get("livro", ""),
-                    "data_emprestimo": rec.get("data_emprestimo", ""),
-                    "devolvido": "1" if rec.get("devolvido") else "0",
-                    "data_devolucao": rec.get("data_devolucao", ""),
-                }
+    data_dir = os.path.dirname(DATA_FILE)
+    fd, tmp_path = tempfile.mkstemp(dir=data_dir, suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=[
+                    "nome",
+                    "cpf",
+                    "telefone",
+                    "livro",
+                    "data_emprestimo",
+                    "devolvido",
+                    "data_devolucao",
+                ],
             )
+            writer.writeheader()
+            for rec in records:
+                writer.writerow(
+                    {
+                        "nome": rec.get("nome", ""),
+                        "cpf": rec.get("cpf", ""),
+                        "telefone": rec.get("telefone", ""),
+                        "livro": rec.get("livro", ""),
+                        "data_emprestimo": rec.get("data_emprestimo", ""),
+                        "devolvido": "1" if rec.get("devolvido") else "0",
+                        "data_devolucao": rec.get("data_devolucao", ""),
+                    }
+                )
+        shutil.move(tmp_path, DATA_FILE)
+    except Exception:
+        os.unlink(tmp_path)
+        raise
